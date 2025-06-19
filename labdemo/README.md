@@ -26,7 +26,14 @@
    alias kc='kubectx'
    alias kn='kubens'
 
-   source /etc/bash_completion
+  # load bash completion scripts
+  # the bash-completion package installs them under /usr/share/bash-completion
+  # some older systems symlink /etc/bash_completion to this file
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+  fi
    source <(kubectl completion bash)
    complete -o default -F __start_kubectl k
    ```
