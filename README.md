@@ -129,3 +129,82 @@ cd /mnt/c/Users/Owner
 
 > **Kubernetes is the operating system of the cloud.**  
 > It enables virtual machines and containers to communicate effectively and distribute workloads efficiently across environments.
+# 📘 Kubernetes Architecture & Essential Commands
+
+## 🧩 Kubernetes Control Plane Components
+
+| Component     | Description |
+|---------------|-------------|
+| **API Server** (`kube-apiserver`) | Front-end of the control plane. Validates and processes kubectl/API requests. |
+| **Scheduler** (`kube-scheduler`) | Assigns newly created pods to appropriate nodes based on resources and policies. |
+| **etcd** | Distributed key-value store holding all cluster state (pods, secrets, services, etc.). |
+
+---
+
+## ⚙️ Common `kubectl` Commands
+
+### 🔍 View Full Pod Configuration
+```bash
+k get pod <pod-name> -o yaml | less
+```
+- View the full YAML configuration of a running pod.
+- `| less` enables page-by-page navigation in terminal.
+
+---
+
+### ✏️ Edit a Pod Live
+```bash
+k edit pod <pod-name>
+```
+- Opens the pod’s YAML in your default CLI editor for real-time editing.
+- Use for quick tweaks or debugging.
+
+---
+
+### 🛠️ Generate Pod YAML from Command
+```bash
+k run nginx --image=nginx --dry-run=client -o yaml > nginx.yaml
+```
+- Simulates pod creation without deploying it (`--dry-run=client`).
+- Saves the generated YAML into `nginx.yaml`.
+
+---
+
+### 🚀 Apply Configuration from YAML
+```bash
+k apply -f nginx.yaml
+```
+- Creates or updates Kubernetes resources from the YAML file.
+
+---
+
+### ✨ Vim Paste Mode (Optional)
+```bash
+:set paste
+```
+- In Vim, this avoids auto-indentation issues when pasting YAML or commands.
+
+---
+
+### 🌐 Get Pod Node and IP Info
+```bash
+k get pod -o wide
+```
+- Shows extra details like node name, IP address, and image used by the pod.
+
+---
+
+### 📦 Create a Deployment with Replicas
+```bash
+k create deploy test --image=httpd --replicas=3
+```
+- Deploys the `httpd` (Apache) image with 3 replicas under the name `test`.
+
+---
+
+### 📋 View Deployments
+```bash
+k get deployment.apps
+```
+- Lists all deployments in the current namespace.
+
